@@ -39,6 +39,9 @@ doioctl:
 
 /* include mcast_join2 */
 #ifdef	IPV6
+#ifndef	IPV6_JOIN_GROUP
+#define	IPV6_JOIN_GROUP	IPV6_ADD_MEMBERSHIP
+#endif
 	case AF_INET6: {
 		struct ipv6_mreq	mreq6;
 
@@ -56,7 +59,7 @@ doioctl:
 		else
 			mreq6.ipv6mr_interface = 0;
 
-		return(setsockopt(sockfd, IPPROTO_IPV6, IPV6_ADD_MEMBERSHIP,
+		return(setsockopt(sockfd, IPPROTO_IPV6, IPV6_JOIN_GROUP,
 						  &mreq6, sizeof(mreq6)));
 	}
 #endif
